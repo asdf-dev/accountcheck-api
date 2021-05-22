@@ -17,6 +17,8 @@ apply plugin:"war"
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.plugins.views-json"
 
+apply from: "${project.rootDir}/gradle/codenarc/codenarc.gradle"
+
 repositories {
     maven { url "https://repo.grails.org/grails/core" }
 }
@@ -76,4 +78,12 @@ tasks.withType(GroovyCompile) {
     configure(groovyOptions) {
         forkOptions.jvmArgs = ['-Xmx1024m']
     }
+}
+
+task codenarcAll() {
+    group "verification"
+    description("Runs all codenarc tasks")
+    dependsOn(codenarcIntegrationTest)
+    dependsOn(codenarcTest)
+    dependsOn(codenarcMain)
 }

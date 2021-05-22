@@ -1,0 +1,14 @@
+apply plugin: "codenarc"
+
+dependencies {
+    codenarc "org.codenarc:CodeNarc:1.6.1"
+    codenarc 'org.codehaus.groovy:groovy-templates'
+    compile "org.codehaus.groovy:groovy:3.0.5"
+    compile "org.codehaus.groovy:groovy-templates:3.0.5"
+}
+
+
+codenarc {
+    reportFormat = 'html'
+    configFile = file "${rootProject.projectDir}/gradle/codenarc/rules.groovy"
+}
