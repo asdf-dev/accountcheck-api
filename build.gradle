@@ -5,6 +5,7 @@ buildscript {
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "org.grails.plugins:views-gradle:2.0.2"
+        classpath 'com.bmuschko:gradle-clover-plugin:2.2.4'
     }
 }
 
@@ -18,6 +19,7 @@ apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.plugins.views-json"
 
 apply from: "${project.rootDir}/gradle/codenarc/codenarc.gradle"
+apply from: "${project.projectDir}/gradle/clover/clover.gradle"
 
 repositories {
     maven { url "https://repo.grails.org/grails/core" }
