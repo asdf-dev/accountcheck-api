@@ -19,6 +19,7 @@ clover {
     excludes = ['**/Application.groovy',
                 '**/BootStrap.groovy',
                 '**/UrlMappings.groovy',
+                '**/LoggingInterceptor.groovy',
                 '**/*GrailsPlugin.groovy',
                 '**/*Mock.groovy',
                 '**/CsvModel.groovy',

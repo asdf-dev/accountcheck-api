@@ -12,3 +12,7 @@ codenarc {
     reportFormat = 'html'
     configFile = file "${rootProject.projectDir}/gradle/codenarc/rules.groovy"
 }
+
+codenarcMain {
+    exclude "controllers/accountcheck/LoggingInterceptor.groovy"
+}
