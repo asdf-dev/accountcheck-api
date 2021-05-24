@@ -1,0 +1,7 @@
+model {
+    String upTime
+}
+
+json {
+    "TimeAlive" upTime
+}
