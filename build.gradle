@@ -1,3 +1,6 @@
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
 buildscript {
     repositories {
         maven { url "https://repo.grails.org/grails/core" }
@@ -6,17 +9,19 @@ buildscript {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "org.grails.plugins:views-gradle:2.0.2"
         classpath 'com.bmuschko:gradle-clover-plugin:2.2.4'
+        classpath 'com.bmuschko:gradle-docker-plugin:7.0.1'
     }
 }
 
-version "0.1"
+version "2.0.0"
 group "accountcheck"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
-apply plugin:"war"
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.plugins.views-json"
+
+apply plugin:"com.bmuschko.docker-remote-api"
 
 apply from: "${project.rootDir}/gradle/codenarc/codenarc.gradle"
 apply from: "${project.projectDir}/gradle/clover/clover.gradle"
@@ -92,4 +97,48 @@ task codenarcAll() {
     dependsOn(codenarcIntegrationTest)
     dependsOn(codenarcTest)
     dependsOn(codenarcMain)
+}
+
+
+/////
+//docker
+/////
+
+ext {
+    dockerTag = "accountcheck:${project.version}".toLowerCase()
+    dockerBuildDir = mkdir("${buildDir}/docker")
+}
+task prepareDocker(type: Copy, dependsOn: assemble) {
+    description = 'Copy files from src/main/docker and application jar to Docker temporal build directory'
+    group = 'Docker'
+
+    from 'src/main/docker'
+    from project.jar
+
+    into dockerBuildDir
+}
+task createDockerfile(type: Dockerfile, dependsOn: prepareDocker) {
+    description = 'Create a Dockerfile file'
+    group = 'Docker'
+
+    destFile = project.file("${dockerBuildDir}/Dockerfile")
+
+    from 'openjdk:12-jdk-alpine3.9'
+
+    exposePort 8080
+
+    workingDir '/app'
+
+    copyFile jar.archiveName, 'application.jar'
+    copyFile 'app-entrypoint.sh', 'app-entrypoint.sh'
+    runCommand 'chmod +x app-entrypoint.sh'
+
+    entryPoint '/app/app-entrypoint.sh'
+}
+task buildImage(type: DockerBuildImage, dependsOn: createDockerfile) {
+    description = 'Create Docker image to run the Grails application'
+    group = 'Docker'
+
+    inputDir = file(dockerBuildDir)
+    images.add(dockerTag)
 }
