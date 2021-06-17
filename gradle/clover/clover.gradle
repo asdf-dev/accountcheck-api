@@ -23,6 +23,7 @@ clover {
                 '**/*GrailsPlugin.groovy',
                 '**/*Mock.groovy',
                 '**/CsvModel.groovy',
+                'src/main/groovy/accountcheck/model/*'
     ]
 
     testIncludes = ['**/*Spec.groovy']

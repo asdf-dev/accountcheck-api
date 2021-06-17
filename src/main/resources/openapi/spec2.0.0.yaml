@@ -1,0 +1,221 @@
+openapi: 3.0.3
+info:
+  title: csgo-spec
+  version: '2.0.0'
+  description: |
+    check account using status
+  termsOfService: https://www.apibldr.com/
+  x-logo:
+    url: https://www.apibldr.com/
+servers:
+  - url: https://TBA.docker
+    description: 'this would be a locale docker ip '
+    x-last-modified: 1621895029988
+paths:
+  /healthcheck:
+    summary: time alive
+    get:
+      tags: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/healthcheck'
+          description: ''
+          x-last-modified: 1621894812214
+      operationId: '2'
+      summary: gets users and their info
+    x-last-modified: 1621894790143
+  /faceitcheck:
+    summary: get info for players
+    description: get info from players from, status in console, steam 64 id, steam url, etc
+    get:
+      tags: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/faceitcheck'
+          description: ''
+          x-last-modified: 1621895165401
+        '400':
+          description: Bad Request
+          x-last-modified: 1621943866920
+        '401':
+          description: Unauthorized
+          x-last-modified: 1621943816715
+        '408':
+          description: Request Timeout
+          x-last-modified: 1621943896157
+    x-last-modified: 1621895140692
+components:
+  schemas:
+    healthcheck:
+      type: object
+      properties:
+        TimeAlive:
+          type: string
+          example:
+            - '01:00:00'
+      example:
+        TimeAlive: '01:00:00'
+      x-last-modified: 1621894772106
+    faceitcheck:
+      type: object
+      properties:
+        faceit:
+          type: object
+          properties:
+            player_id:
+              type: string
+              example:
+                - 6afd3089-c4cf-49fd-b07d-6afcf79c71cc
+            nickname:
+              type: string
+              example:
+                - voodoo-csgo
+            country:
+              type: string
+              example:
+                - dk
+            new_steam_id:
+              type: string
+              example:
+                - '[U:1:7476399]'
+            steam_id_64:
+              type: string
+              example:
+                - '76561197967742127'
+            games:
+              type: object
+              properties:
+                csgo:
+                  type: object
+                  properties:
+                    game_profile_id:
+                      type: string
+                      example:
+                        - 97808ab1-e5d8-4081-960f-a9fb1c023b78
+                    region:
+                      type: string
+                      example:
+                        - EU
+                    skill_level_label:
+                      type: string
+                      example:
+                        - '5'
+                    game_player_id:
+                      type: string
+                      example:
+                        - '76561197967742127'
+                    skill_level:
+                      type: number
+                      example:
+                        - 5
+                    faceit_elo:
+                      type: number
+                      example:
+                        - 1396
+                    game_player_name:
+                      type: string
+                      example:
+                        - ★asdf
+            stats:
+              type: object
+              properties:
+                Average Headshots %:
+                  type: string
+                  example:
+                    - '31'
+                Matches:
+                  type: string
+                  example:
+                    - '114'
+                Average K/D Ratio:
+                  type: string
+                  example:
+                    - '1.14'
+            faceit_url:
+              type: string
+              example:
+                - https://www.faceit.com/{lang}/players/voodoo-csgo
+        steam:
+          type: object
+          properties:
+            steamid:
+              type: string
+              example:
+                - '76561197967742127'
+            profileurl:
+              type: string
+              example:
+                - https://steamcommunity.com/id/itsmem9k/
+            avatar:
+              type: string
+              example:
+                - >-
+                  https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21.jpg
+            avatarmedium:
+              type: string
+              example:
+                - >-
+                  https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21_medium.jpg
+            avatarfull:
+              type: string
+              example:
+                - >-
+                  https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21_full.jpg
+            lastlogoff:
+              type: number
+              example:
+                - 1621883433
+            timecreated:
+              type: number
+              example:
+                - 1090952696
+            communityvisibilitystate:
+              type: number
+              example:
+                - 3
+      example:
+        faceit:
+          player_id: 6afd3089-c4cf-49fd-b07d-6afcf79c71cc
+          nickname: voodoo-csgo
+          country: dk
+          new_steam_id: '[U:1:7476399]'
+          steam_id_64: '76561197967742127'
+          games:
+            csgo:
+              game_profile_id: 97808ab1-e5d8-4081-960f-a9fb1c023b78
+              region: EU
+              skill_level_label: '5'
+              game_player_id: '76561197967742127'
+              skill_level: 5
+              faceit_elo: 1396
+              game_player_name: ★asdf
+          stats:
+            Average Headshots %: '31'
+            Matches: '114'
+            Average K/D Ratio: '1.14'
+          faceit_url: https://www.faceit.com/{lang}/players/voodoo-csgo
+        steam:
+          steamid: '76561197967742127'
+          profileurl: https://steamcommunity.com/id/itsmem9k/
+          avatar: >-
+            https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21.jpg
+          avatarmedium: >-
+            https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21_medium.jpg
+          avatarfull: >-
+            https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21_full.jpg
+          lastlogoff: 1621883433
+          timecreated: 1090952696
+          communityvisibilitystate: 3
+      x-last-modified: 1621894889721
+  securitySchemes: {}
+  headers: {}
+  responses: {}
+  parameters: {}
+tags: []
+security: []
