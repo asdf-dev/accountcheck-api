@@ -10,7 +10,7 @@ class UrlMappings {
 //        put "/$controller/$id(.$format)?"(action:"update")
 //        patch "/$controller/$id(.$format)?"(action:"patch")
 
-        "/"(controller: 'application', action:'index')
+        get "/api/spec"(controller: 'spec', action: 'showSpec')
 
         get "/health"(controller: "health", action: 'health')
 
