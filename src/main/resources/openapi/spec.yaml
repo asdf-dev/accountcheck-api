@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: csgo-spec
-  version: '2.0.0'
+  version: 2.0.0
   description: |
     check account using status
   termsOfService: https://www.apibldr.com/
@@ -30,25 +30,34 @@ paths:
   /faceitcheck:
     summary: get info for players
     description: get info from players from, status in console, steam 64 id, steam url, etc
-    get:
-      tags: []
+    post:
+      requestBody:
+        description: |
+          this is the request body. it contains a list of steam 64 ids
+        content:
+          application/json:
+            schema:
+              description: |
+                {"steam64":[
+                   76561197967742127,
+                   76561197967742127,
+                   76561197967742127
+                ]}
+            example:
+              steam64:
+                - 76561197967742130
+                - 76561197967742130
+                - 76561197967742130
+        required: true
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/faceitcheck'
-          description: ''
-          x-last-modified: 1621895165401
-        '400':
-          description: Bad Request
-          x-last-modified: 1621943866920
-        '401':
-          description: Unauthorized
-          x-last-modified: 1621943816715
-        '408':
-          description: Request Timeout
-          x-last-modified: 1621943896157
+                $ref: '#/components/schemas/player'
+          description: returns list of players
+          x-last-modified: 1624097312162
+      description: ''
     x-last-modified: 1621895140692
 components:
   schemas:
@@ -62,7 +71,7 @@ components:
       example:
         TimeAlive: '01:00:00'
       x-last-modified: 1621894772106
-    faceitcheck:
+    player:
       type: object
       properties:
         faceit:
