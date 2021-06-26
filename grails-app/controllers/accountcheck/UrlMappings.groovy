@@ -12,6 +12,9 @@ class UrlMappings {
 
         get "/api/spec"(controller: 'spec', action: 'showSpec')
 
+        post "/accountcheck"(controller: "account", action: 'players')
+
+
         get "/health"(controller: "health", action: 'health')
 
         "500"(view: '/error')

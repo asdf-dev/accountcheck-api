@@ -1,6 +1,6 @@
 package accountcheck.model
 
-class player {
+class Player {
     Faceit faceit
     Steam steam
 }
