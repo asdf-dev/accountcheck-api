@@ -71,6 +71,13 @@ dependencies {
 
     // https://github.com/lukas-krecan/JsonUnit
     testCompile 'net.javacrumbs.json-unit:json-unit:2.25.0'
+
+    //micronaut http client
+    compile "io.micronaut:micronaut-http-client"
+
+    //wiremock  https://github.com/tomakehurst/wiremock
+    testCompile 'com.github.tomakehurst:wiremock:2.27.2'
+
 }
 
 bootRun {

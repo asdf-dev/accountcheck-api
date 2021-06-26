@@ -8,6 +8,7 @@ import org.springframework.validation.Errors
 class AccountController {
     static responseFormats = ['json']
 
+    AccountService accountService
 
     private static final String UNPROCESSABLE_ENTITY = HttpStatus.UNPROCESSABLE_ENTITY.toString()
 
@@ -24,6 +25,7 @@ class AccountController {
             return
         }
 
+        //call account service
 
         render "hello world"
     }
