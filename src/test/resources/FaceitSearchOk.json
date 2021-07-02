@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "player_id": "6afd3089-c4cf-49fd-b07d-6afcf79c71cc",
+      "nickname": "voodoo-csgo",
+      "status": "AVAILABLE",
+      "games": [
+        {
+          "name": "csgo",
+          "skill_level": "5"
+        }
+      ],
+      "country": "DK",
+      "verified": false,
+      "avatar": "https://assets.faceit-cdn.net/avatars/6afd3089-c4cf-49fd-b07d-6afcf79c71cc_1550430232933.jpg"
+    }
+  ],
+  "start": 0,
+  "end": 20
+}

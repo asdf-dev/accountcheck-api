@@ -10,7 +10,7 @@ class AccountController {
 
     AccountService accountService
 
-    private static final String UNPROCESSABLE_ENTITY = HttpStatus.UNPROCESSABLE_ENTITY.toString()
+    private static final String UNPROCESSABLE_ENTITY = HttpStatus.UNPROCESSABLE_ENTITY
 
     def players(RequestList req) {
 

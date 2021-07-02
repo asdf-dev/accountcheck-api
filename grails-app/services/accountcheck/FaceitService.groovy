@@ -1,17 +1,20 @@
 package accountcheck
 
 import groovy.json.JsonSlurper
+import groovy.util.logging.Slf4j
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.uri.UriBuilder
-import jdk.incubator.jpackage.internal.Log
+
 
 import static accountcheck.secrets.secrets.faceitToken
 
+@SuppressWarnings("CatchException") //we want to capture all
+@Slf4j
 class FaceitService {
 
-    private static final String SEARCH_FOR_PLAYERS = "https://open.faceit.com/data/v4/search/players"
+    protected static String SEARCH_FOR_PLAYERS = "https://open.faceit.com/data/v4/search/players"
 
 
     Object searchForPlayer(String steamId64) {
@@ -27,9 +30,15 @@ class FaceitService {
             return jsonSlurper.parseText(response.body())
         }
         catch (Exception e) {
-            Log.error("searchForPlayer failed with error: $e.response.status.reason")
+            log.error("searchForPlayer failed with error: $e.response.status.reason")
             return jsonSlurper.parseText("""{"message": "${e.response.status.reason}"}""")
         }
     }
+    
+    
+    //do search for stats:
+    //https://open.faceit.com/data/v4/players/6afd3089-c4cf-49fd-b07d-6afcf79c71cc/stats/csgo
+    //https://open.faceit.com/data/v4/players/FACEIT_ID/csgo
+    
 
 }
