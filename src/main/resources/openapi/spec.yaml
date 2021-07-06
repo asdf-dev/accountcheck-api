@@ -27,7 +27,7 @@ paths:
       operationId: '2'
       summary: gets users and their info
     x-last-modified: 1621894790143
-  /faceitcheck:
+  /accountcheck:
     summary: get info for players
     description: get info from players from, status in console, steam 64 id, steam url, etc
     post:
