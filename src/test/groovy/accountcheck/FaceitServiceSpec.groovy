@@ -20,6 +20,7 @@ class FaceitServiceSpec extends Specification implements ServiceUnitTest<FaceitS
 
     def setup() {
         service.SEARCH_FOR_PLAYERS = path
+        service.PLAYER_STATS = path
 
         wireMockRule.resetAll()
         wireMockRule.start()
@@ -114,7 +115,6 @@ class FaceitServiceSpec extends Specification implements ServiceUnitTest<FaceitS
             response.message == "Not Found"
     }
 
-
     def "faceit search 408 timeout wiremock"() {
         given:
             String steamid = "408"
@@ -128,6 +128,76 @@ class FaceitServiceSpec extends Specification implements ServiceUnitTest<FaceitS
 
         then:
             response.message == "Request Timeout"
+    }
+
+    //stats
+    def "faceit search for player ok"() {
+        given:
+            String facieId = "6afd3089-c4cf-49fd-b07d-6afcf79c71cc"
+
+            wireMockRule.stubFor(get(urlEqualTo("//6afd3089-c4cf-49fd-b07d-6afcf79c71cc/stats/csgo"))
+                    .willReturn(aResponse()
+                            .withStatus(200)
+                            .withHeader("Content-Type", "application/json charset=utf-8")
+                            .withBody(getFile("src/test/resources/FaceitStatsOK.json"))))
+
+        when:
+            def response = service.playerStats(facieId)
+
+        then:
+            def lifetime = response.lifetime
+
+            lifetime.get("Average K/D Ratio").equals("1.14")
+            lifetime.get("Matches").equals("114")
+            lifetime.get("Average Headshots %").equals("31")
+    }
+
+    def "faceit search for player ok not found"() {
+        given:
+            String facieId = "6afd3089-c4cf-49fd-b07d-6afcf79c71cc"
+
+            wireMockRule.stubFor(get(urlEqualTo("//6afd3089-c4cf-49fd-b07d-6afcf79c71cc/stats/csgo"))
+                    .willReturn(aResponse()
+                            .withStatus(200)
+                            .withHeader("Content-Type", "application/json charset=utf-8")
+                            .withBody(getFile("src/test/resources/FaceitStatsOKEmpty.json"))))
+
+        when:
+            def response = service.playerStats(facieId)
+
+        then:
+            response.errors[0].message == "The resource was not found."
+    }
+
+    def "faceit search for player not found"() {
+        given:
+            String facieId = "6afd3089-c4cf-49fd-b07d-6afcf79c71cc"
+
+            wireMockRule.stubFor(get(urlEqualTo("//6afd3089-c4cf-49fd-b07d-6afcf79c71cc/stats/csgo"))
+                    .willReturn(aResponse()
+                            .withStatus(404)))
+
+        when:
+            def response = service.playerStats(facieId)
+
+        then:
+            response.message == "Not Found"
+    }
+
+    def "faceit search for player time out"() {
+        given:
+            String facieId = "6afd3089-c4cf-49fd-b07d-6afcf79c71cc"
+
+            wireMockRule.stubFor(get(urlEqualTo("//6afd3089-c4cf-49fd-b07d-6afcf79c71cc/stats/csgo"))
+                    .willReturn(aResponse()
+                            .withStatus(408)))
+
+        when:
+            def response = service.playerStats(facieId)
+
+        then:
+            response.message == "Request Timeout"
+
     }
 
     String getFile(String path) {
