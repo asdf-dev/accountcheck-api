@@ -34,7 +34,7 @@ class FaceitServiceSpec extends Specification implements ServiceUnitTest<FaceitS
                     .willReturn(aResponse()
                             .withStatus(200)
                             .withHeader("Content-Type", "application/json charset=utf-8")
-                            .withBody(getFile("src/test/resources/FaceitSearchOk.json"))))
+                            .withBody(getFile("src/test/resources/faceit/FaceitSearchOk.json"))))
 
         when:
             def response = service.searchForPlayer(steamid)
@@ -62,7 +62,7 @@ class FaceitServiceSpec extends Specification implements ServiceUnitTest<FaceitS
                     .willReturn(aResponse()
                             .withStatus(200)
                             .withHeader("Content-Type", "application/json charset=utf-8")
-                            .withBody(getFile("src/test/resources/FaceitSearchOkBannedPlayer.json"))))
+                            .withBody(getFile("src/test/resources/faceit/FaceitSearchOkBannedPlayer.json"))))
 
         when:
             def response = service.searchForPlayer(steamid)
@@ -90,7 +90,7 @@ class FaceitServiceSpec extends Specification implements ServiceUnitTest<FaceitS
                     .willReturn(aResponse()
                             .withStatus(200)
                             .withHeader("Content-Type", "application/json charset=utf-8")
-                            .withBody(getFile("src/test/resources/FaceitSearchOkEmpty.json"))))
+                            .withBody(getFile("src/test/resources/faceit/FaceitSearchOkEmpty.json"))))
 
         when:
             def response = service.searchForPlayer(steamid)
@@ -139,7 +139,7 @@ class FaceitServiceSpec extends Specification implements ServiceUnitTest<FaceitS
                     .willReturn(aResponse()
                             .withStatus(200)
                             .withHeader("Content-Type", "application/json charset=utf-8")
-                            .withBody(getFile("src/test/resources/FaceitStatsOK.json"))))
+                            .withBody(getFile("src/test/resources/faceit/FaceitStatsOK.json"))))
 
         when:
             def response = service.playerStats(facieId)
@@ -160,7 +160,7 @@ class FaceitServiceSpec extends Specification implements ServiceUnitTest<FaceitS
                     .willReturn(aResponse()
                             .withStatus(200)
                             .withHeader("Content-Type", "application/json charset=utf-8")
-                            .withBody(getFile("src/test/resources/FaceitStatsOKEmpty.json"))))
+                            .withBody(getFile("src/test/resources/faceit/FaceitStatsOKEmpty.json"))))
 
         when:
             def response = service.playerStats(facieId)
