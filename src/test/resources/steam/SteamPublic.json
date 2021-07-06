@@ -1,0 +1,24 @@
+{
+  "response": {
+    "players": [
+      {
+        "steamid": "123",
+        "communityvisibilitystate": 3,
+        "profilestate": 1,
+        "personaname": "★ m9K",
+        "commentpermission": 2,
+        "profileurl": "https://steamcommunity.com/id/itsmem9k/",
+        "avatar": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21.jpg",
+        "avatarmedium": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21_medium.jpg",
+        "avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21_full.jpg",
+        "avatarhash": "0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21",
+        "lastlogoff": 1625517135,
+        "personastate": 0,
+        "primaryclanid": "103582791429521408",
+        "timecreated": 1090952696,
+        "personastateflags": 0,
+        "loccountrycode": "DK"
+      }
+    ]
+  }
+}

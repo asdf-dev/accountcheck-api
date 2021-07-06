@@ -1,0 +1,20 @@
+{
+  "response": {
+    "players": [
+      {
+        "steamid": "123",
+        "communityvisibilitystate": 1,
+        "profilestate": 1,
+        "personaname": "masturbinh0",
+        "profileurl": "https://steamcommunity.com/profiles/76561199087210787/",
+        "avatar": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/89/89b245bde76b74676170f151d74e215140f360a7.jpg",
+        "avatarmedium": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/89/89b245bde76b74676170f151d74e215140f360a7_medium.jpg",
+        "avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/89/89b245bde76b74676170f151d74e215140f360a7_full.jpg",
+        "avatarhash": "89b245bde76b74676170f151d74e215140f360a7",
+        "lastlogoff": 1621801348,
+        "personastate": 0,
+        "personastateflags": 0
+      }
+    ]
+  }
+}
