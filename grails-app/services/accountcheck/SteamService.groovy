@@ -12,15 +12,35 @@ import static accountcheck.secrets.secrets.steamToken
 //we want to capture all
 class SteamService {
 
-    protected static String STEAM_API_URL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
+    protected static String STEAM_API_URL_PROFILE = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
+    protected static String STEAM_API_URL_GAME = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"
 
-    Object steanProfile(String steamId64) {
+    Object steamProfile(String steamId) {
         def jsonSlurper = new JsonSlurper()
 
-        HttpClient client = HttpClient.create(STEAM_API_URL.toURL())
-        HttpRequest request = HttpRequest.GET(UriBuilder.of(STEAM_API_URL)
+        HttpClient client = HttpClient.create(STEAM_API_URL_PROFILE.toURL())
+        HttpRequest request = HttpRequest.GET(UriBuilder.of(STEAM_API_URL_PROFILE)
                 .queryParam("key", steamToken())
-                .queryParam("steamids", steamId64)
+                .queryParam("steamids", steamId)
+                .build())
+        try {
+            HttpResponse<String> response = client.toBlocking().exchange(request, String)
+            return jsonSlurper.parseText(response.body())
+        }
+        catch (Exception e) {
+            log.error("searchForPlayer failed with error: $e.response.status.reason")
+            return jsonSlurper.parseText("""{"message": "${e.response.status.reason}"}""")
+        }
+    }
+
+    Object steamGames(String steamId) {
+        def jsonSlurper = new JsonSlurper()
+
+        HttpClient client = HttpClient.create(STEAM_API_URL_GAME.toURL())
+        HttpRequest request = HttpRequest.GET(UriBuilder.of(STEAM_API_URL_GAME)
+                .queryParam("format", "json")
+                .queryParam("key", steamToken())
+                .queryParam("steamid", steamId)
                 .build())
         try {
             HttpResponse<String> response = client.toBlocking().exchange(request, String)

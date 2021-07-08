@@ -3,7 +3,7 @@ package accountcheck.model
 import grails.validation.Validateable
 
 class RequestList implements Validateable {
-    List<Long> steam64
+    List<String> steam64
 }
 
 

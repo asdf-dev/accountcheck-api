@@ -1,0 +1,11 @@
+import accountcheck.model.FaceitStats
+
+model {
+    FaceitStats faceitStats
+}
+
+json {
+        "averageHeadshots" faceitStats.Average_Headshots
+        "matches" faceitStats.Matches
+        "avageKDRatio" faceitStats.avg_kd_ratio
+}

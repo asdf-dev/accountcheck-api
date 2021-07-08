@@ -1,16 +1,26 @@
 package accountcheck.model
 
+
 class Steam {
 
-    String steamId
-    String profileUrl
 
+    /**
+     * mulighed for ctor der kan lave obj
+     * custom binder tager imod map og smider dem på obj
+     * lige nu er alt lowercase ad
+     */
+
+    String steamid
+
+    String loccountrycode
+    String profileurl
     String avatar
-    String avatarMedium
-    String avatarFull
+    String avatarmedium
+    String avatarfull
+    BigInteger lastlogoff
+    Integer accountAge
+    Integer communityvisibilitystate
+    Integer game_count
 
-    BigInteger lastLogOff
-    BigInteger timeCreated
-    Integer communityVisibilityState
 
 }

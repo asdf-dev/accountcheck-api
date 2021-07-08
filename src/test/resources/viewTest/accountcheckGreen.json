@@ -1,0 +1,45 @@
+{
+  "Player":
+  {
+    "faceit":
+    {
+      "playerId": "playerid",
+      "nickname": "nickname",
+      "country": "DK",
+      "status": "stats",
+      "verified": false,
+      "avatar": "avatar",
+      "games":
+      [
+        {
+          "name": "csgo",
+          "skillLevel": 1
+        },
+        {
+          "name": "csgo",
+          "skillLevel": 1
+        }
+      ],
+      "faceitStats":
+      {
+        "averageHeadshots": "34%",
+        "matches": "203",
+        "avageKDRatio": "0.4"
+      },
+      "faceitUrl": "www.faceit.com"
+    },
+    "steam":
+    {
+      "steamId": "steamid",
+      "locCountryCode": "DK",
+      "profileUrl": "url",
+      "avatar": "avatar",
+      "avatarMedium": "medium",
+      "avatarFull": "full",
+      "lastLogoff": 1234,
+      "accountAge": 23,
+      "communityVisibilityState": 3,
+      "gameCount": 2
+    }
+  }
+}

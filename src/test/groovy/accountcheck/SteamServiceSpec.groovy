@@ -9,12 +9,13 @@ import spock.lang.Specification
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import static com.github.tomakehurst.wiremock.client.WireMock.get
+import static com.github.tomakehurst.wiremock.client.WireMock.matching
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 import static accountcheck.secrets.secrets.steamToken
 
 
-class SteamServiceSpec extends Specification implements ServiceUnitTest<SteamService>{
+class SteamServiceSpec extends Specification implements ServiceUnitTest<SteamService> {
 
     @Rule
     WireMockRule wireMockRule = new WireMockRule(options().port(8989).extensions(new ResponseTemplateTransformer(false)))
@@ -23,7 +24,8 @@ class SteamServiceSpec extends Specification implements ServiceUnitTest<SteamSer
     String path = "http://127.0.0.1:8989/"
 
     def setup() {
-        service.STEAM_API_URL = path
+        service.STEAM_API_URL_PROFILE = path
+        service.STEAM_API_URL_GAME = path
 
         wireMockRule.resetAll()
         wireMockRule.start()
@@ -41,7 +43,7 @@ class SteamServiceSpec extends Specification implements ServiceUnitTest<SteamSer
                             .withBody(getFile("src/test/resources/steam/SteamPublic.json"))))
 
         when:
-            def response = service.steanProfile(steamid)
+            def response = service.steamProfile(steamid)
 
         then:
             with(response.response.players[0]) {
@@ -75,7 +77,7 @@ class SteamServiceSpec extends Specification implements ServiceUnitTest<SteamSer
                             .withBody(getFile("src/test/resources/steam/SteamNotFound.json"))))
 
         when:
-            def response = service.steanProfile(steamid)
+            def response = service.steamProfile(steamid)
 
         then:
             response.response.players.empty
@@ -92,7 +94,7 @@ class SteamServiceSpec extends Specification implements ServiceUnitTest<SteamSer
                             .withBody(getFile("src/test/resources/steam/SteamPrivateProfile.json"))))
 
         when:
-            def response = service.steanProfile(steamid)
+            def response = service.steamProfile(steamid)
 
         then:
             with(response.response.players[0]) {
@@ -120,7 +122,7 @@ class SteamServiceSpec extends Specification implements ServiceUnitTest<SteamSer
                             .withStatus(404)))
 
         when:
-            def response = service.steanProfile(steamid)
+            def response = service.steamProfile(steamid)
 
         then:
             response.message == "Not Found"
@@ -136,7 +138,7 @@ class SteamServiceSpec extends Specification implements ServiceUnitTest<SteamSer
                             .withStatus(408)))
 
         when:
-            def response = service.steanProfile(steamid)
+            def response = service.steamProfile(steamid)
 
         then:
             response.message == "Request Timeout"
@@ -144,6 +146,74 @@ class SteamServiceSpec extends Specification implements ServiceUnitTest<SteamSer
 
     }
 
+    def "404 steamGame"() {
+        given:
+            String steamid = "123"
+
+            wireMockRule.stubFor(get(urlEqualTo("/?steamid=123&format=json&key=${steamToken()}"))
+                    .willReturn(aResponse()
+                            .withStatus(404)))
+
+        when:
+            def response = service.steamGames(steamid)
+
+        then:
+            response.message == "Not Found"
+
+    }
+
+    def "timeout  steamGame"() {
+        given:
+            String steamid = "123"
+
+            wireMockRule.stubFor(get(urlEqualTo("/?steamid=123&format=json&key=${steamToken()}"))
+                    .willReturn(aResponse()
+                            .withStatus(408)))
+
+        when:
+            def response = service.steamGames(steamid)
+
+        then:
+            response.message == "Request Timeout"
+
+    }
+
+
+    def "internal server error  steamGame"() {
+        given:
+            String steamid = "123"
+
+            wireMockRule.stubFor(get(urlEqualTo("/?steamid=123&format=json&key=${steamToken()}"))
+                    .willReturn(aResponse()
+                            .withStatus(500)))
+
+        when:
+            def response = service.steamGames(steamid)
+
+        then:
+            response.message == "Internal Server Error"
+
+    }
+
+    def "ok kald steamGame Public"() {
+        given:
+            String steamid = "123"
+
+            wireMockRule.stubFor(get(urlEqualTo("/?steamids=123&key=${steamToken()}"))
+                    .willReturn(aResponse()
+                            .withStatus(200)
+                            .withHeader("Content-Type", "application/json charset=utf-8")
+                            .withBody(getFile("src/test/resources/steam/SteamPublicGames.json"))))
+
+        when:
+            def response = service.steamProfile(steamid)
+
+        then:
+            with(response.response) {
+                game_count == 2
+                games.size == 2
+            }
+    }
 
     String getFile(String path) {
         new File(path).text
