@@ -1,0 +1,9 @@
+import accountcheck.model.Player
+
+model {
+    Iterable<Player> players
+}
+
+json {
+    data g.render(template: "player", collection: players, var: "player")
+}

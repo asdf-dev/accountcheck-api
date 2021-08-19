@@ -55,7 +55,7 @@ class AccountViewSpec extends Specification implements JsonViewTest {
             )
         String expected = getFile('src/test/resources/viewTest/accountcheckGreen.json')
         when:
-            JsonRenderResult renderResult = render(view: "account/show", model: [player: player])
+            JsonRenderResult renderResult = render(view: "account/index", model: [players: [player, player]])
             def actucal = renderResult.jsonText
 
         then:

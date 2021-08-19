@@ -5,16 +5,20 @@ model {
 }
 
 json {
-        "playerId" faceit.player_id
-        "nickname" faceit.nickname
-        "country" faceit.country
-        "status" faceit.status
-        "verified" faceit.verified
-        "avatar" faceit.avatar
+    "playerId" faceit?.player_id
+    "nickname" faceit?.nickname
+    "country" faceit?.country
+    "status" faceit?.status
+    "verified" faceit?.verified
+    "avatar" faceit?.avatar
 
+    if (faceit?.games) {
         "games" g.render(template: "games", collection: faceit.games, var: "game")
+    }
+    if (faceit?.faceitStats) {
         "faceitStats" g.render(template: "faceitStats", model: [faceitStats: faceit.faceitStats])
+    }
 
 
-        "faceitUrl" faceit.faceit_url
+    "faceitUrl" faceit?.faceit_url
 }

@@ -1,6 +1,5 @@
 package accountcheck
 
-import accountcheck.model.Faceit
 import accountcheck.model.Player
 import groovy.json.JsonSlurper
 import spock.lang.Shared
@@ -45,7 +44,7 @@ class PlayerDataBinderSpec extends Specification {
                     name == "csgo"
                     skill_level == 5
                 }
-                with(faceitStats) {
+                with(it.faceitStats) {
                     Average_Headshots == "31"
                     Matches == "114"
                     avg_kd_ratio == "1.14"
@@ -147,7 +146,7 @@ class PlayerDataBinderSpec extends Specification {
                     name == "csgo"
                     skill_level == 5
                 }
-                with(faceitStats) {
+                with(it.faceitStats) {
                     Average_Headshots == "31"
                     Matches == "114"
                     avg_kd_ratio == "1.14"

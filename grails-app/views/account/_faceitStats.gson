@@ -5,7 +5,7 @@ model {
 }
 
 json {
-        "averageHeadshots" faceitStats.Average_Headshots
-        "matches" faceitStats.Matches
-        "avageKDRatio" faceitStats.avg_kd_ratio
+        "averageHeadshots" faceitStats?.Average_Headshots
+        "matches" faceitStats?.Matches
+        "avageKDRatio" faceitStats?.avg_kd_ratio
 }

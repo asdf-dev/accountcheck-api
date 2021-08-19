@@ -12,13 +12,13 @@ import java.time.ZoneId
 
 class PlayerDataBinder implements DataBinder {
 
-    private static String FACEIT_PROFILE_URL = "https://www.faceit.com/en/players/"
+    private final static String FACEIT_PROFILE_URL = "https://www.faceit.com/en/players/"
 
     Player playerBuilder(Object faceitSearch, Object faceitStats, Object steamProfile) {
 
         Player player = new Player(faceit: new Faceit(), steam: new Steam())
 
-        if (faceitSearch?.items?.getAt(0)) {
+        if (faceitSearch?.items[0]) {
             bindData(player.faceit, faceitSearch.items[0])
             player.faceit.faceit_url = FACEIT_PROFILE_URL + player.faceit.nickname
 
@@ -29,13 +29,14 @@ class PlayerDataBinder implements DataBinder {
 
         if (steamProfile?.response?.players?.getAt(0)) {
             bindData(player.steam, steamProfile.response.players[0])
-            player.steam.accountAge = getYearFromUnix(steamProfile.response.players[0].timecreated)
+            if (player.steam.accountAge) {
+                player.steam.accountAge = getYearFromUnix(steamProfile.response.players[0].timecreated)
+            }
         }
         return player
     }
 
     private static FaceitStats bindFaceitStats(Object stats) {
-
         FaceitStats faceitStats = new FaceitStats()
         if (stats.lifetime) {
             faceitStats.avg_kd_ratio = stats.lifetime.get("Average K/D Ratio")
