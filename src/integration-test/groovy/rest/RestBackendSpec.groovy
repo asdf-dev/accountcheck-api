@@ -11,6 +11,7 @@ import org.junit.Rule
 import spock.lang.Specification
 
 import static io.micronaut.http.HttpMethod.GET
+import static io.micronaut.http.HttpMethod.POST
 import static io.micronaut.http.HttpRequest.create
 import static com.github.tomakehurst.wiremock.client.WireMock.*
 
@@ -32,6 +33,9 @@ abstract class RestBackendSpec extends Specification {
     HttpResponse<String> httpGET() {
         return createCall(GET, "${getBaseUrl()}/$resursePath")
     }
+    HttpResponse<String> httpPost(String body) {
+        return createCall(POST, "${getBaseUrl()}/$resursePath", body)
+    }
 
     BlockingHttpClient getClient() {
         HttpClient.create("${getBaseUrl()}".toURL()).toBlocking()
@@ -40,7 +44,7 @@ abstract class RestBackendSpec extends Specification {
     private HttpResponse<String> createCall(HttpMethod method, String uri, def body = null) {
         def request
         if (body) {
-            request = create(method, uri).body(body).header('x-cvr', "$cvr")
+            request = create(method, uri).body(body)
             return client.exchange(request, String)
         }
         request = create(method, uri)
