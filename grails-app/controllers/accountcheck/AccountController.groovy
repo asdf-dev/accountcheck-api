@@ -1,6 +1,6 @@
 package accountcheck
 
-
+import accountcheck.model.Player
 import accountcheck.model.RequestList
 import org.springframework.http.HttpStatus
 import org.springframework.validation.Errors
@@ -25,9 +25,10 @@ class AccountController {
             return
         }
 
-        //call account service
+        def players = accountService.findPlayers(req)
 
-        render "hello world"
+
+        render(view: "index", model: [players: players])
     }
 
 

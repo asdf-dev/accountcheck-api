@@ -1,0 +1,12 @@
+import accountcheck.model.Player
+
+model {
+    Player player
+}
+
+json {
+    Player {
+        faceit g.render(template: "faceit", model: [faceit: player.faceit])
+        steam g.render(template: "steam", model: [steam: player.steam])
+    }
+}

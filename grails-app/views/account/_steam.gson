@@ -1,0 +1,18 @@
+import accountcheck.model.Steam
+
+model {
+    Steam steam
+}
+
+json {
+        "steamId" steam.steamid
+        "locCountryCode" steam.loccountrycode
+        "profileUrl" steam.profileurl
+        "avatar" steam.avatar
+        "avatarMedium" steam.avatarmedium
+        "avatarFull" steam.avatarfull
+        "lastLogoff" steam.lastlogoff
+        "accountAge" steam.accountAge
+        "communityVisibilityState" steam.communityvisibilitystate
+        "gameCount" steam.game_count
+}

@@ -5,23 +5,19 @@ class Faceit {
     String player_id
     String nickname
     String country
-    String new_steam_id
-    String steam_id_64
-    Games games
-    FaceitStats stats
+    String status
+    boolean verified
+    String avatar
+    List<Games> games
+    FaceitStats faceitStats
     String faceit_url
 
 }
 
 class Games {
 
-    String game_profile_id
-    String region
-    String skill_level_label
-    String game_player_id
+    String name
     Integer skill_level
-    Integer faceit_elo
-    String game_player_name
 
 }
 

@@ -147,9 +147,10 @@ class FaceitServiceSpec extends Specification implements ServiceUnitTest<FaceitS
         then:
             def lifetime = response.lifetime
 
-            lifetime.get("Average K/D Ratio").equals("1.14")
-            lifetime.get("Matches").equals("114")
-            lifetime.get("Average Headshots %").equals("31")
+
+            lifetime.get("Average K/D Ratio") == "1.14"
+            lifetime.get("Matches") == "114"
+            lifetime.get("Average Headshots %") == "31"
     }
 
     def "faceit search for player ok not found"() {

@@ -1,0 +1,10 @@
+import accountcheck.model.Games
+
+model {
+    Games game
+}
+
+json {
+        "name" game.name
+        "skillLevel" game.skill_level
+}
