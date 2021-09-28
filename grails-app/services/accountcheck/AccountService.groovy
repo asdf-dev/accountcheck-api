@@ -2,7 +2,6 @@ package accountcheck
 
 
 import accountcheck.model.Player
-import accountcheck.model.RequestId
 import grails.gorm.services.Service
 import groovyx.gpars.GParsPool
 

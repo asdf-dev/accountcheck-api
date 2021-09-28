@@ -40,8 +40,8 @@ class AccountControllerRestSpec extends RestBackendSpec {
         faceitService.SEARCH_FOR_PLAYERS = path
         faceitService.PLAYER_STATS = path
 
-        steamService.STEAM_API_URL_PROFILE
-        steamService.STEAM_API_URL_GAME
+        steamService.STEAM_API_URL_PROFILE = path
+        steamService.STEAM_API_URL_GAME = path
 
         wireMockRule.resetAll()
         wireMockRule.start()
@@ -57,7 +57,7 @@ class AccountControllerRestSpec extends RestBackendSpec {
 
     def "green path"() {
         given:
-            String requestJson = """{"steam64":[76561197967742127]}"""
+            String requestJson = '''#  3 2 "lil lolz" STEAM_0:1:3738199 02:38 53 0 active 196608'''
 
 
             wireMockRule.stubFor(get(urlEqualTo("/?nickname=76561197967742127"))
@@ -73,6 +73,13 @@ class AccountControllerRestSpec extends RestBackendSpec {
                             .withStatus(200)
                             .withHeader("Content-Type", "application/json charset=utf-8")
                             .withBody(getFile("src/test/resources/steam/SteamPublic.json"))))
+        and:
+
+            wireMockRule.stubFor(get(urlEqualTo("/?steamid=76561197967742127&format=json&key=${steamToken()}"))
+                    .willReturn(aResponse()
+                            .withStatus(200)
+                            .withHeader("Content-Type", "application/json charset=utf-8")
+                            .withBody(getFile("src/test/resources/steam/SteamPublicGames.json"))))
 
         and:
 
@@ -102,16 +109,17 @@ class AccountControllerRestSpec extends RestBackendSpec {
                 faceitUrl == "https://www.faceit.com/en/players/voodoo-csgo"
             }
             with(returnBody.data[0].Player.steam) {
-                steamId == "76561197967742127"
-                locCountryCode == null
+                steamId == "123"
+                playerName == "lil lolz"
+                locCountryCode == 'DK'
                 profileUrl == "https://steamcommunity.com/id/itsmem9k/"
-                avatar == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/73/73031901f28894dde7e8fa6a9481c14e897f298b.jpg"
-                avatarMedium == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/73/73031901f28894dde7e8fa6a9481c14e897f298b_medium.jpg"
-                avatarFull == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/73/73031901f28894dde7e8fa6a9481c14e897f298b_full.jpg"
-                lastLogoff == 1630073666
-                accountAge == null
+                avatar == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21.jpg"
+                avatarMedium == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21_medium.jpg"
+                avatarFull == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0a/0a7b23ce1e3fa2d517c3c54507b7977aa7fb1d21_full.jpg"
+                lastLogoff == 1625517135
+                accountAge == 17
                 communityVisibilityState == 3
-                gameCount == 187
+                gameCount == 2
             }
     }
 

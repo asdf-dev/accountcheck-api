@@ -1,6 +1,5 @@
 package accountcheck
 
-import accountcheck.model.RequestId
 import grails.testing.services.ServiceUnitTest
 import groovy.json.JsonSlurper
 import spock.lang.Shared
@@ -30,9 +29,7 @@ class AccountServiceSpec extends Specification implements ServiceUnitTest<Accoun
 
     def "we can bind green scenario"() {
         given: "make request list"
-            RequestId requestList = new RequestId()
-            requestList.steam64 = ["1"]
-
+            String searchString = '''#  3 2 "lil lolz" STEAM_1:0:143061144 02:38 53 0 active 196608'''
 
         and: "mock facie service"
 
@@ -56,7 +53,7 @@ class AccountServiceSpec extends Specification implements ServiceUnitTest<Accoun
                 }
             }
         when:
-            def response = service.findPlayers(requestList)
+            def response = service.findPlayers(searchString)
 
         then:
             response[0].with {

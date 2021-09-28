@@ -104,7 +104,7 @@ class PlayerDataBinderSpec extends Specification {
 
     }
 
-    def "we can bind data to player facit not sound"() {
+    def "we can bind data to player with no faceit account"() {
         given:
             Object steam = jsonSlurper.parseText(getFile("src/test/resources/steam/SteamPublic.json"))
 

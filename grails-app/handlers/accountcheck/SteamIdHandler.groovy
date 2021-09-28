@@ -1,15 +1,13 @@
 package accountcheck
 
 
-import accountcheck.model.RequestId
-
 class SteamIdHandler {
     private static final Long STEAM_OFFSET_HEX = 0x0110000100000000
     private static final String STEAM_BASIC_ID_REGEX = "STEAM_\\d:\\d:([0-9]+)"
     private static final String STEAM_BASIC_REGEX = "([\"'])(?:(?=(\\\\?))\\2.)*?\\1 STEAM_\\d:\\d:([0-9]+)"
     private static final String STEAM_NAME = "([\"'])(?:(?=(\\\\?))\\2.)*?\\1"
 
-
+//todo I need unit test!
     private Long steam64ID(String basicSteamId) {
 
         Integer z = Integer.parseInt(basicSteamId.find("([0-9]){2,}"))
@@ -36,7 +34,6 @@ class SteamIdHandler {
         }
         basicSteam
     }
-
 
 
 }

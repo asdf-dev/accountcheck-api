@@ -11,7 +11,7 @@ class AccountController {
 
     def players() {
 
-        String plainTextRequest = request.getReader().text
+        String plainTextRequest = request.reader.text
 
         def players = accountService.findPlayers(plainTextRequest)
 
@@ -20,7 +20,8 @@ class AccountController {
     }
 
 
-    private renderErrors(Errors errors) {
-        render(template: "/errors/errors", model: [errors: errors])
-    }
+    //todo we cant render errors
+//    private renderErrors(Errors errors) {
+//        render(template: "/errors/errors", model: [errors: errors])
+//    }
 }
