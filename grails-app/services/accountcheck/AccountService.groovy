@@ -18,7 +18,7 @@ class AccountService {
 
     List<Player> findPlayers(String plainText) {
 
-         List<RequestId> requestList = steamIdHandler.findBasicSteamId(plainText)
+         Map<String, String> requestList = steamIdHandler.findBasicSteamId(plainText)
 
 
         playerDataBinder = new PlayerDataBinder()
@@ -26,8 +26,9 @@ class AccountService {
         List<Player> players = []
 
         GParsPool.withPool {
-            requestList.eachParallel {
-                Object faceitSearch = faceitService.searchForPlayer(it.steam64)
+//            requestList.eachParallel {
+            requestList.each {
+                Object faceitSearch = faceitService.searchForPlayer(it.key.toString())
                 String faceitId = faceitSearch?.items[0]?.player_id
 
 
@@ -37,13 +38,13 @@ class AccountService {
                     faceitStats = faceitService.playerStats(faceitId)
                 }
 
-                Object steamProfile = steamService.steamProfile(it.steam64)
-
+                Object steamProfile = steamService.steamProfile(it.key.toString())
                 if (steamProfile?.response?.players?.getAt(0)?.communityvisibilitystate == 3) {
-                    Integer gameCount = steamService?.steamGames(it.steam64)?.response?.game_count ?: null
+                    Integer gameCount = steamService?.steamGames(it.key.toString())?.response?.game_count ?: null
                     steamProfile.response.players[0].game_count = gameCount
                 }
 
+                steamProfile.nickname = it.value
                 Player player = playerDataBinder.playerBuilder(faceitSearch, faceitStats, steamProfile)
 
                 if (player) {

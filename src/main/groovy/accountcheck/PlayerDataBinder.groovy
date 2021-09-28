@@ -29,6 +29,7 @@ class PlayerDataBinder implements DataBinder {
 
         if (steamProfile?.response?.players?.getAt(0)) {
             bindData(player.steam, steamProfile.response.players[0])
+            player.steam.playerName = steamProfile.nickname
             if (player.steam.accountAge) {
                 player.steam.accountAge = getYearFromUnix(steamProfile.response.players[0].timecreated)
             }
