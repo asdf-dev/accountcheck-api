@@ -2,8 +2,8 @@ package accountcheck.model
 
 import grails.validation.Validateable
 
-class RequestList implements Validateable {
-    List<String> steam64
+class RequestId implements Validateable {
+    String  steam64
 }
 
 

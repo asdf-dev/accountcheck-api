@@ -1,6 +1,6 @@
 package accountcheck
 
-import accountcheck.model.RequestList
+import accountcheck.model.RequestId
 import grails.testing.services.ServiceUnitTest
 import groovy.json.JsonSlurper
 import spock.lang.Shared
@@ -30,7 +30,7 @@ class AccountServiceSpec extends Specification implements ServiceUnitTest<Accoun
 
     def "we can bind green scenario"() {
         given: "make request list"
-            RequestList requestList = new RequestList()
+            RequestId requestList = new RequestId()
             requestList.steam64 = ["1"]
 
 

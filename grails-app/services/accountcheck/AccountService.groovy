@@ -1,7 +1,8 @@
 package accountcheck
 
+
 import accountcheck.model.Player
-import accountcheck.model.RequestList
+import accountcheck.model.RequestId
 import grails.gorm.services.Service
 import groovyx.gpars.GParsPool
 
@@ -11,18 +12,22 @@ class AccountService {
 
     FaceitService faceitService
     SteamService steamService
+    SteamIdHandler steamIdHandler = new SteamIdHandler()
 
     PlayerDataBinder playerDataBinder
 
+    List<Player> findPlayers(String plainText) {
 
-    List<Player> findPlayers(RequestList requestList) {
+         List<RequestId> requestList = steamIdHandler.findBasicSteamId(plainText)
+
+
         playerDataBinder = new PlayerDataBinder()
 
         List<Player> players = []
 
         GParsPool.withPool {
-            requestList.steam64.eachParallel {
-                Object faceitSearch = faceitService.searchForPlayer(it)
+            requestList.eachParallel {
+                Object faceitSearch = faceitService.searchForPlayer(it.steam64)
                 String faceitId = faceitSearch?.items[0]?.player_id
 
 
@@ -32,10 +37,10 @@ class AccountService {
                     faceitStats = faceitService.playerStats(faceitId)
                 }
 
-                Object steamProfile = steamService.steamProfile(it)
+                Object steamProfile = steamService.steamProfile(it.steam64)
 
                 if (steamProfile?.response?.players?.getAt(0)?.communityvisibilitystate == 3) {
-                    Integer gameCount = steamService?.steamGames(it)?.response?.game_count ?: null
+                    Integer gameCount = steamService?.steamGames(it.steam64)?.response?.game_count ?: null
                     steamProfile.response.players[0].game_count = gameCount
                 }
 
