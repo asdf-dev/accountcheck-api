@@ -1,19 +1,15 @@
 {
-  "data":
-  [
+  "data": [
     {
-      "Player":
-      {
-        "faceit":
-        {
+      "Player": {
+        "faceit": {
           "playerId": "playerid",
           "nickname": "nickname",
           "country": "DK",
           "status": "stats",
           "verified": false,
           "avatar": "avatar",
-          "games":
-          [
+          "games": [
             {
               "name": "csgo",
               "skillLevel": 1
@@ -23,16 +19,15 @@
               "skillLevel": 1
             }
           ],
-          "faceitStats":
-          {
+          "faceitStats": {
             "averageHeadshots": "34%",
             "matches": "203",
             "avageKDRatio": "0.4"
           },
           "faceitUrl": "www.faceit.com"
         },
-        "steam":
-        {
+        "steam": {
+          "playerName": "steam nickname",
           "steamId": "steamid",
           "locCountryCode": "DK",
           "profileUrl": "url",
@@ -47,18 +42,15 @@
       }
     },
     {
-      "Player":
-      {
-        "faceit":
-        {
+      "Player": {
+        "faceit": {
           "playerId": "playerid",
           "nickname": "nickname",
           "country": "DK",
           "status": "stats",
           "verified": false,
           "avatar": "avatar",
-          "games":
-          [
+          "games": [
             {
               "name": "csgo",
               "skillLevel": 1
@@ -68,16 +60,15 @@
               "skillLevel": 1
             }
           ],
-          "faceitStats":
-          {
+          "faceitStats": {
             "averageHeadshots": "34%",
             "matches": "203",
             "avageKDRatio": "0.4"
           },
           "faceitUrl": "www.faceit.com"
         },
-        "steam":
-        {
+        "steam": {
+          "playerName": "steam nickname",
           "steamId": "steamid",
           "locCountryCode": "DK",
           "profileUrl": "url",

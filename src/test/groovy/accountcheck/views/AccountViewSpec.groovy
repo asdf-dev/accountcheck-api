@@ -39,6 +39,7 @@ class AccountViewSpec extends Specification implements JsonViewTest {
             )
             Steam steam = new Steam(
                     steamid: "steamid",
+                    playerName: "steam nickname",
                     loccountrycode: "DK",
                     profileurl: "url",
                     avatar: "avatar",

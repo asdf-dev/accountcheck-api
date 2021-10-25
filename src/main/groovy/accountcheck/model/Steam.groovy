@@ -12,6 +12,7 @@ class Steam {
 
     String steamid
 
+    String playerName
     String loccountrycode
     String profileurl
     String avatar

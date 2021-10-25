@@ -16,9 +16,11 @@ class PlayerDataBinder implements DataBinder {
 
     Player playerBuilder(Object faceitSearch, Object faceitStats, Object steamProfile) {
 
+        //todo steamProfile/faceit should not need to go .response etc this should be the obj
+
         Player player = new Player(faceit: new Faceit(), steam: new Steam())
 
-        if (faceitSearch?.items[0]) {
+        if (faceitSearch?.items) {
             bindData(player.faceit, faceitSearch.items[0])
             player.faceit.faceit_url = FACEIT_PROFILE_URL + player.faceit.nickname
 
@@ -29,7 +31,8 @@ class PlayerDataBinder implements DataBinder {
 
         if (steamProfile?.response?.players?.getAt(0)) {
             bindData(player.steam, steamProfile.response.players[0])
-            if (player.steam.accountAge) {
+            player.steam.playerName = steamProfile.nickname
+            if (steamProfile?.response?.players?.getAt(0)?.timecreated) {
                 player.steam.accountAge = getYearFromUnix(steamProfile.response.players[0].timecreated)
             }
         }

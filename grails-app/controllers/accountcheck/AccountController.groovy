@@ -1,8 +1,6 @@
 package accountcheck
 
-import accountcheck.model.Player
-import accountcheck.model.RequestList
-import org.springframework.http.HttpStatus
+
 import org.springframework.validation.Errors
 
 class AccountController {
@@ -10,29 +8,20 @@ class AccountController {
 
     AccountService accountService
 
-    private static final String UNPROCESSABLE_ENTITY = HttpStatus.UNPROCESSABLE_ENTITY
 
-    def players(RequestList req) {
+    def players() {
 
-        if (req.hasErrors() || !req.steam64) {
-            if (!req.steam64) {
-                req.errors.reject(UNPROCESSABLE_ENTITY, "list cannot be empty")
-                renderErrors(req.errors)
-                return
-            }
-            req.errors.reject(UNPROCESSABLE_ENTITY, req.errors.allErrors.first().defaultMessage)
-            renderErrors(req.errors)
-            return
-        }
+        String plainTextRequest = request.reader.text
 
-        def players = accountService.findPlayers(req)
+        def players = accountService.findPlayers(plainTextRequest)
 
 
         render(view: "index", model: [players: players])
     }
 
 
-    private renderErrors(Errors errors) {
-        render(template: "/errors/errors", model: [errors: errors])
-    }
+    //todo we cant render errors
+//    private renderErrors(Errors errors) {
+//        render(template: "/errors/errors", model: [errors: errors])
+//    }
 }

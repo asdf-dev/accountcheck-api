@@ -5,6 +5,7 @@ model {
 }
 
 json {
+        "playerName" steam.playerName
         "steamId" steam.steamid
         "locCountryCode" steam.loccountrycode
         "profileUrl" steam.profileurl
