@@ -1,6 +1,5 @@
 package accountcheck
 
-import java.util.logging.Logger
 
 class LoggingInterceptor {
 
@@ -10,26 +9,26 @@ class LoggingInterceptor {
         matchAll()
     }
 
-    Logger logger = Logger.getLogger("")
+
     boolean before() {
         startTimer = new Date().getTime()
-        logger.info("Incoming request")
-        logger.info("headers: " + request.headerNames)
-        logger.info("request getMethod: " + request?.getMethod())
-        logger.info("requestURL: " + request.requestURL)
-        logger.info("remoteAddr: " + request.remoteAddr)
-        logger.info("request: " + request)
+        print("Incoming request")
+        print("headers: " + request.headerNames)
+        print("request getMethod: " + request?.getMethod())
+        print("requestURL: " + request.requestURL)
+        print("remoteAddr: " + request.remoteAddr)
+        print("request: " + request)
         true }
 
     boolean after() {
-        logger.info("respond status: " + response.status)
+        print("respond status: " + response.status)
         true }
 
     void afterView() {
         Long endTimer = new Date().getTime()
         Integer calc = endTimer-startTimer
-        logger.info("response time: ${calc/1000}sek")
-        logger.info("request end")
+        print("response time: ${calc/1000}sek")
+        print("request end")
 
         // no-op
     }
