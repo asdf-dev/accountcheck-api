@@ -12,12 +12,12 @@ class LoggingInterceptor {
 
     boolean before() {
         startTimer = new Date().getTime()
-        print("Incoming request")
-        print("headers: " + request.headerNames)
-        print("request getMethod: " + request?.getMethod())
-        print("requestURL: " + request.requestURL)
-        print("remoteAddr: " + request.remoteAddr)
-        print("request: " + request)
+        println("Incoming request")
+        println("headers: " + request.headerNames)
+        println("request getMethod: " + request?.getMethod())
+        println("requestURL: " + request.requestURL)
+        println("remoteAddr: " + request.remoteAddr)
+        println("request: " + request)
         true }
 
     boolean after() {
@@ -27,8 +27,8 @@ class LoggingInterceptor {
     void afterView() {
         Long endTimer = new Date().getTime()
         Integer calc = endTimer-startTimer
-        print("response time: ${calc/1000}sek")
-        print("request end")
+        println("response time: ${calc/1000}sek")
+        println("request end")
 
         // no-op
     }

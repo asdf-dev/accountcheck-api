@@ -14,7 +14,7 @@ codenarc {
 }
 
 codenarcMain {
-    exclude "controllers/accountcheck/LoggingInterceptor.groovy"
+    exclude "accountcheck/LoggingInterceptor.groovy"
     exclude "accountcheck/secrets/secrets.groovy"
 
 }
