@@ -25,8 +25,7 @@ class AccountService {
         List<Player> players = []
 
         GParsPool.withPool {
-//            requestList.eachParallel {
-            requestList.each {
+            requestList.eachParallel {
                 Object faceitSearch = faceitService.searchForPlayer(it.key.toString())
                 String faceitId = faceitSearch?.items[0]?.player_id
 
