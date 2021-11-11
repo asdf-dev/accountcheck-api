@@ -1,5 +1,6 @@
 package accountcheck
 
+import grails.plugin.cache.Cacheable
 import groovy.json.JsonSlurper
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -17,6 +18,7 @@ class SteamService {
 
     private final static String KEY_FOR_QUERYPARAM = "key"
 
+    @Cacheable('steamprofile')
     Object steamProfile(String steamId) {
         def jsonSlurper = new JsonSlurper()
 
@@ -35,6 +37,7 @@ class SteamService {
         }
     }
 
+    @Cacheable('steamgames')
     Object steamGames(String steamId) {
         def jsonSlurper = new JsonSlurper()
 

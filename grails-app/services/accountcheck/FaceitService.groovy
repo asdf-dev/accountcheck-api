@@ -1,5 +1,6 @@
 package accountcheck
 
+import grails.plugin.cache.Cacheable
 import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
 import io.micronaut.http.HttpRequest
@@ -20,7 +21,7 @@ class FaceitService {
     //https://open.faceit.com/data/v4/players/FACEIT_ID/stats/csgo
 
 
-
+    @Cacheable('faceitplayer')
     Object searchForPlayer(String steamId64) {
         def jsonSlurper = new JsonSlurper()
 
@@ -39,6 +40,7 @@ class FaceitService {
         }
     }
 
+    @Cacheable('faceitstats')
     Object playerStats(String faceitID, String game = "csgo") {
         def jsonSlurper = new JsonSlurper()
 

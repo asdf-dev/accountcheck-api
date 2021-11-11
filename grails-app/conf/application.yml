@@ -1,5 +1,15 @@
 ---
 grails:
+    cache:
+        caches:
+            faceitplayer:
+                maxCapacity: 500
+            faceitstats:
+                maxCapacity: 500
+            steamprofile:
+                maxCapacity: 500
+            steamgames:
+                maxCapacity: 500
     cors:
         enabled:
             true
