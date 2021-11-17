@@ -14,6 +14,8 @@ class UrlMappings {
 
         post "/accountcheck"(controller: "account", action: 'players')
 
+        post "/cc"(controller: "account", action: "clear")
+
 
         get "/health"(controller: "health", action: 'health')
 

@@ -1,13 +1,13 @@
 package accountcheck
 
+import org.springframework.http.HttpStatus
 
-import org.springframework.validation.Errors
 
 class AccountController {
     static responseFormats = ['json']
 
     AccountService accountService
-
+    def grailsCacheAdminService
 
     def players() {
 
@@ -19,6 +19,18 @@ class AccountController {
         render(view: "index", model: [players: players])
     }
 
+    def clear() {
+        if (!request.getHeader("x-i-am-admin")) {
+            render(HttpStatus.FORBIDDEN)
+            return
+        }
+        grailsCacheAdminService.clearCache("faceitplayer")
+        grailsCacheAdminService.clearCache("faceitstats")
+        grailsCacheAdminService.clearCache("steamprofile")
+        grailsCacheAdminService.clearCache("steamgames")
+
+        render(HttpStatus.NO_CONTENT)
+    }
 
     //todo we cant render errors
 //    private renderErrors(Errors errors) {

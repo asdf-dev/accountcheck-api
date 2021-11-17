@@ -11,3 +11,4 @@ out/
 .settings
 .classpath
 /src/main/groovy/accountcheck/secrets/*
+/src/main/docker/keystore.jks
