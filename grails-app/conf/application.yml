@@ -21,6 +21,16 @@ grails:
             # Whether to translate GORM events into Reactor events
             # Disabled by default for performance reasons
             events: false
+
+
+server:
+    port: 8443
+    ssl:
+        enabled: true
+        keyStore: /app/keystore.jks
+        keyStorePassword: lol112
+        keyAlias: accountcheck.dk
+
 info:
     app:
         name: '@info.app.name@'
@@ -43,9 +53,6 @@ spring:
                 - '**/*.gson'
                 - 'logback.groovy'
                 - '*.properties'
-server:
-    port:
-        8181
 management:
     endpoints:
         enabled-by-default: false

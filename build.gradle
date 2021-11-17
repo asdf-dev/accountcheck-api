@@ -138,6 +138,7 @@ task createDockerfile(type: Dockerfile, dependsOn: prepareDocker) {
 
     copyFile jar.archiveName, 'application.jar'
     copyFile 'app-entrypoint.sh', 'app-entrypoint.sh'
+    copyFile 'keystore.jks', 'keystore.jks'
     runCommand 'chmod +x app-entrypoint.sh'
 
     entryPoint '/app/app-entrypoint.sh'
