@@ -13,7 +13,7 @@ buildscript {
     }
 }
 
-version "2.1.2"
+version "2.2.0"
 group "accountcheck"
 
 apply plugin:"eclipse"
@@ -132,7 +132,7 @@ task createDockerfile(type: Dockerfile, dependsOn: prepareDocker) {
 
     from 'openjdk:12-jdk-alpine3.9'
 
-    exposePort 8181
+    exposePort 8443
 
     workingDir '/app'
 

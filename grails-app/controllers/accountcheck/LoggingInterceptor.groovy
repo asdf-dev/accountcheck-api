@@ -12,7 +12,7 @@ class LoggingInterceptor {
 
     boolean before() {
         startTimer = new Date().getTime()
-        println("Incoming request")
+        println("Incoming request: " + new Date())
         println("headers: " + request.headerNames)
         println("request getMethod: " + request?.getMethod())
         println("requestURL: " + request.requestURL)
